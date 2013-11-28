@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<data-sources/>
+	<form-beans>
+		<form-bean name="LoginForm" type="bookstore.LoginForm"/>
+        <form-bean name="RegisterForm" type="bookstore.RegisterForm"/>
+        <form-bean name="SearchBookForm" type="bookstore.SearchBookForm"/>
+        <form-bean name="PayForm" type="bookstore.PayForm"/>
+        <form-bean name="EditBookForm" type="bookstore.EditBookForm"/>
+	</form-beans>
+	<global-exceptions/>
+	<global-forwards>
+		<forward name="frontPage" path="/index.jsp"/>
+        <forward name="errorPage" path="/errorpage.jsp"/>
+	</global-forwards>
+	<action-mappings>
+		<action input="/index.jsp" name="LoginForm" path="/Login" scope="request" type="bookstore.LoginAction" validate="true">
+			<forward name="success" path="/index.jsp"/>
+			<forward name="failed" path="/index.jsp"/>
+		</action>
+        <action path="/Logout" type="bookstore.Logout" validate="false">
+        	<forward name="return" path="/index.jsp"/>
+        </action>
+        <action path="/Register" validate="true" input="/register.jsp" name="RegisterForm" scope="request" type="bookstore.RegisterAction"/>
+        <action path="/Modify" type="bookstore.ModifyAction" scope="request" validate="false" name="RegisterForm"/>
+        <action path="/OrderDetail" type="bookstore.OrderDetailAction" scope="request" validate="false">
+            <forward name="orderdetail" path="/orderdetail.jsp"/>
+        </action>
+        <action path="/BookDetail" type="bookstore.BookDetailAction" scope="request" validate="false">
+            <forward name="bookdetail" path="/bookdetail.jsp"/>
+        </action>
+        <action path="/SearchBook" type="bookstore.SearchBookAction" scope="request" validate="false" name="SearchBookForm">
+            <forward name="searchResult" path="/searchbook.jsp"/>
+        </action>
+        <action path="/ShoppingCart" type="bookstore.ShoppingCartAction" scope="request" validate="false">
+            <forward name="bookReady" path="/bookready.jsp"/>
+        </action>
+        <action path="/ViewCart" type="bookstore.ViewCartAction" scope="request" validate="false">
+            <forward name="viewCart" path="/viewcart.jsp"/>
+        </action>
+        <action path="/Pay" type="bookstore.PayAction" scope="request" validate="true" name="PayForm" input="/viewcart.jsp"/>
+        <action path="/DeleteBook" scope="request" type="bookstore.DeleteBookAction" validate="false" input="/SearchBook.do"/>
+        <action path="/EditBook" scope="request" type="bookstore.EditBookAction" validate="false">
+            <forward name="editBook" path="/editbook.jsp"/>
+        </action>
+        <action name="EditBookForm" path="/SaveBook" type="bookstore.SaveBookAction" scope="request" validate="true">
+            <forward name="searchBook" path="/SearchBook.do"/>
+        </action>
+	</action-mappings>
+	<message-resources parameter="bookstore.ApplicationResources_zh"/>
+</struts-config>
+
